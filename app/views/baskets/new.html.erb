@@ -1,0 +1,11 @@
+<h1>Basket#new</h1>
+<%= form_for(@basket) do |f| %>
+  <div class="field">
+    <%= f.label :name, placeholder: "" %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <%= f.submit "Create", class: "btn btn-primary" %>
+<% end %>
+
+

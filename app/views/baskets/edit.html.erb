@@ -1,0 +1,10 @@
+<h1>Basket#edit</h1>
+<%= form_for(@basket) do |f|%>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <%= f.submit "Update", class: "btn btn-primary" %>
+<% end %>
+

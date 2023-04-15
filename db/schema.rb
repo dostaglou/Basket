@@ -15,7 +15,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_15_133352) do
   enable_extension "plpgsql"
 
   create_table "baskets", force: :cascade do |t|
-    t.string "name", default: "My Basket", null: false
+    t.string "name", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
