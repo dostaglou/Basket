@@ -1,0 +1,25 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { id: :new_registration }) do |f| %>
+  <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name %>
+  </div>
+
+ <div class="field">
+   <%= f.label :email, id: :registration_email %><br />
+   <%= f.email_field :email, autofocus: true, autocomplete: "email", id: :registration_email %>
+ </div>
+
+ <div class="field">
+   <%= f.label :password, id: :registration_password %><br />
+   <%= f.password_field :password, autocomplete: "current-password", id: :registration_password %>
+ </div>
+
+ <div class="actions mt-3">
+   <%= f.submit "Log in", class: "btn btn-primary" %>
+ </div>
+<% end %>
