@@ -25,4 +25,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :baskets
+  has_many :items
 end

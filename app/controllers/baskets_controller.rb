@@ -1,6 +1,6 @@
 class BasketsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_basket, only: [:show, :update, :edit, :destroy]
+  before_action :set_basket, only: %i[ show update edit destroy]
 
   # GET /baskets
   def index
@@ -9,12 +9,11 @@ class BasketsController < ApplicationController
 
   # GET /baskets/:id
   def show
-    @basket = Basket.find(params[:id])
   end
 
   # GET /baskets/new
   def new
-    @basket = Basket.new(user_id: current_user.id)
+    @basket = Basket.new
   end
 
   # POST /baskets/create
@@ -44,7 +43,7 @@ class BasketsController < ApplicationController
       params.require(:basket).permit(:name)
     end
 
-    def find_basket
+    def set_basket
       @basket = Basket.find(params[:id])
     end
 end
