@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Basket items</h1>
+
+<div id="basket_items">
+  <% @basket_items.each do |basket_item| %>
+    <%= render basket_item %>
+    <p>
+      <%= link_to "Show this basket item", basket_item %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New basket item", new_basket_item_path %>

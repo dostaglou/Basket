@@ -1,0 +1,9 @@
+<h1>New basket item</h1>
+
+<%= render "form", basket_item: @basket_item, baskets: @baskets, items: @items %>
+
+<br>
+
+<div>
+  <%= link_to "Back to basket items", basket_items_path %>
+</div>

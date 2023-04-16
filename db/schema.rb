@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_15_143234) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_15_212051) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "basket_items", force: :cascade do |t|
+    t.bigint "basket_id", null: false
+    t.bigint "item_id", null: false
+    t.string "name", null: false
+    t.string "note"
+    t.float "quantity", default: 1.0, null: false
+    t.string "measure", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["basket_id"], name: "index_basket_items_on_basket_id"
+    t.index ["item_id"], name: "index_basket_items_on_item_id"
+  end
 
   create_table "baskets", force: :cascade do |t|
     t.string "name", null: false
@@ -47,6 +60,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_15_143234) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "basket_items", "baskets"
+  add_foreign_key "basket_items", "items"
   add_foreign_key "baskets", "users"
   add_foreign_key "items", "users"
 end
