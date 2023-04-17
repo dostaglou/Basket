@@ -7,6 +7,7 @@ class CreateBasketItems < ActiveRecord::Migration[7.0]
       t.string :note, null: true
       t.float :quantity, null: false, default: 1
       t.string :measure, null: false, default: ""
+      t.string :status, null: false, default: BasketItem::Statuses::PENDING
 
       t.timestamps
     end

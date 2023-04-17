@@ -7,6 +7,7 @@
 #  name       :string           not null
 #  note       :string
 #  quantity   :float            default(1.0), not null
+#  status     :string           default("pending"), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  basket_id  :bigint           not null
@@ -25,6 +26,19 @@
 class BasketItem < ApplicationRecord
   belongs_to :basket
   belongs_to :item
+
+  module Statuses
+    PENDING = 'pending'
+    PICKED_UP = 'picked_up'
+  end
+
+  class << self
+    def get_statuses
+      Statuses.constants(false).map { |c| Statuses.const_get(c) }
+    end
+  end
+
+  validates :status, inclusion: { in: self.get_statuses }
 
   def image_name
     "shopping-venture"

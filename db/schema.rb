@@ -21,6 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_15_212051) do
     t.string "note"
     t.float "quantity", default: 1.0, null: false
     t.string "measure", default: "", null: false
+    t.string "status", default: "pending", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["basket_id"], name: "index_basket_items_on_basket_id"
