@@ -43,4 +43,8 @@ class BasketItem < ApplicationRecord
   def image_name
     "shopping-venture"
   end
+
+  def pending?
+    self.status == Statuses::PENDING
+  end
 end
