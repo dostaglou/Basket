@@ -25,4 +25,8 @@
 class BasketItem < ApplicationRecord
   belongs_to :basket
   belongs_to :item
+
+  def image_name
+    "shopping-venture"
+  end
 end

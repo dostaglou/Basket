@@ -22,4 +22,8 @@
 class Item < ApplicationRecord
   belongs_to :user
   has_many :basket_items, dependent: :destroy
+
+  def image_name
+    "shopping-venture"
+  end
 end
