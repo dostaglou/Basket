@@ -4,7 +4,7 @@ class BasketsController < ApplicationController
 
   # GET /baskets
   def index
-    @baskets = Basket.where(user_id: current_user.id)
+    @baskets = policy_scope(Basket)
   end
 
   # GET /baskets/:id
@@ -44,6 +44,6 @@ class BasketsController < ApplicationController
     end
 
     def set_basket
-      @basket = Basket.find(params[:id])
+      @basket = policy_scope(Basket).find(params[:id])
     end
 end

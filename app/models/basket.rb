@@ -20,7 +20,7 @@ class Basket < ApplicationRecord
   belongs_to :user
   has_many :basket_items, dependent: :destroy
 
-  def get_image
-    image_tag("shopping-venture")
+  def image_name
+    "shopping-venture"
   end
 end

@@ -2,12 +2,12 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item, only: %i[ show edit update destroy ]
 
-  # GET /items or /items.json
+  # GET /items
   def index
-    @items = Item.all
+    @items = policy_scope(Item)
   end
 
-  # GET /items/1 or /items/1.json
+  # GET /items/:id
   def show
   end
 
@@ -16,11 +16,11 @@ class ItemsController < ApplicationController
     @item = Item.new
   end
 
-  # GET /items/1/edit
+  # GET /items/:id/edit
   def edit
   end
 
-  # POST /items or /items.json
+  # POST /items
   def create
     @item = Item.new(item_params.merge(user_id: current_user.id))
 
@@ -35,7 +35,7 @@ class ItemsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /items/1 or /items/1.json
+  # PATCH/PUT /items/:id
   def update
     respond_to do |format|
       if @item.update(item_params)
@@ -48,7 +48,7 @@ class ItemsController < ApplicationController
     end
   end
 
-  # DELETE /items/1 or /items/1.json
+  # DELETE /items/:id
   def destroy
     @item.destroy
 
@@ -61,7 +61,7 @@ class ItemsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item
-      @item = Item.find(params[:id])
+      @item = policy_scope(Item).find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

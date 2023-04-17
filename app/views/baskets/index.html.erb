@@ -1,4 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
 <h1>Baskets</h1>
-<% @baskets.each do |basket| %>
-  <p><%= basket.name %></p>
-<% end %>
+
+<div id="baskets">
+  <% @baskets.each do |basket| %>
+    <%= render basket %>
+    <p>
+      <%= link_to "Show this basket", basket %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New basket", new_basket_path %>

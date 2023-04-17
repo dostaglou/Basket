@@ -1,0 +1,13 @@
+<div id="<%= dom_id basket %>">
+  <p>
+    <strong>Name:</strong>
+    <%= "#{basket.id} - #{basket.name}" %>
+  </p>
+
+  <p>
+    <strong>User:</strong>
+    <%= basket.user_id %>
+  </p>
+
+  <%= image_tag(basket.image_name, height: 64) %>
+</div>

@@ -4,16 +4,7 @@ class BasketItemsController < ApplicationController
 
   # GET /basket_items
   def index
-    scope =
-      if params[:basket_id].present?
-        BasketItem.where(basket_id: params[:basket_id])
-      elsif params[:item_id].present?
-        BasketItem.where(item_id: params[:item_id])
-      else
-        BasketItem.none
-      end
-
-    @basket_items = scope
+    @basket_items = policy_scope(BasketItem)
   end
 
   # GET basket_items/:id
@@ -22,14 +13,13 @@ class BasketItemsController < ApplicationController
 
   # GET basket_items/new
   def new
-    @baskets = Basket.where(user_id: current_user.id)
-    @items = Item.where(user_id: current_user.id)
+    @baskets = policy_scope(Basket)
+    @items = policy_scope(Item)
     @basket_item = BasketItem.new
   end
 
   # POST basket_items
   def create
-    binding.pry
     @basket_item = BasketItem.new(basket_item_params)
 
     respond_to do |format|
@@ -75,7 +65,7 @@ class BasketItemsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_basket_item
-      @basket_item = BasketItem.find(params[:id])
+      @basket_item = policy_scope(BasketItem).find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

@@ -1,10 +1,10 @@
-<h1>Basket#edit</h1>
-<%= form_for(@basket) do |f|%>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
+<h1>Editing basket</h1>
 
-  <%= f.submit "Update", class: "btn btn-primary" %>
-<% end %>
+<%= render "form", basket: @basket %>
 
+<br>
+
+<div>
+  <%= link_to "Show this basket", @basket %> |
+  <%= link_to "Back to baskets", baskets_path %>
+</div>
