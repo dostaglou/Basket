@@ -18,8 +18,17 @@ class BasketsController < ApplicationController
 
   # POST /baskets/create
   def create
-    basket = Basket.create!(basket_params.merge(user_id: current_user.id))
-    redirect_to basket_path(basket)
+    @basket = Basket.create!(basket_params.merge(user_id: current_user.id))
+
+    respond_to do |format|
+      if @basket.save
+        format.html { redirect_to basket_url(@basket), notice: "basket was successfully created." }
+        format.json { render :show, status: :created, location: @basket }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @basket.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # GET /baskets/:id/edit
@@ -28,14 +37,25 @@ class BasketsController < ApplicationController
 
   # PUT /basket/:id
   def update
-    @basket.update!(basket_params)
-    redirect_to basket_path(@basket)
+    respond_to do |format|
+      if @basket.update(basket_params)
+        format.html { redirect_to basket_url(@basket), notice: "basket was successfully updated." }
+        format.json { render :show, status: :ok, location: @basket }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @basket.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # DELETE /basket/:id
   def destroy
-    @basket.destroy!
-    redirect_to baskets_path
+    @basket.destroy
+
+    respond_to do |format|
+      format.html { redirect_to items_url, notice: "Item was successfully destroyed." }
+      format.json { head :no_content }
+    end
   end
 
   private
