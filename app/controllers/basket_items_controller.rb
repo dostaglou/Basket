@@ -70,6 +70,6 @@ class BasketItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def basket_item_params
-      params.require(:basket_item).permit(:basket_id, :item_id, :name, :note, :quantity, :measure)
+      params.require(:basket_item).permit(:basket_id, :item_id, :name, :note, :quantity, :measure, :status)
     end
 end
