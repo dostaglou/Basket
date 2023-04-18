@@ -1,0 +1,22 @@
+<div class="card m-1 shadow bg-body rounded" style="max-width: 540px; min-width: 240px;">
+  <div class="row g-0">
+    <div class="col-md-12">
+      <span style="position: absolute; right: 5px; top: 5px; color: white; background-color: red; border-radius: 50%; width: 1.5em; height: 1.5em; text-align: center">
+        X
+      </span>
+      <h3 class="card-title text-center">
+        <%= item.name %>
+      </h3>
+      <div class="card-text text-center">
+        </small>
+          <%= "#{item.quantity} x #{item.measure}" %>
+        </small>
+      </div>
+        <% if item.id.even? %>
+          <%= link_to "Pickup", "#", class: "btn border-primary w-100" %>
+        <% else %>
+          <%= link_to "Mark Pending", "#", class: "btn border-warning w-100" %>
+        <% end %>
+    </div>
+  </div>
+</div>
