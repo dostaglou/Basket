@@ -4,7 +4,10 @@ class BasketItemsController < ApplicationController
 
   # GET /basket_items
   def index
-    @basket_items = policy_scope(BasketItem)
+    @basket_items = policy_scope(BasketItem).order(created_at: :asc)
+    @basket_item = BasketItem.new
+    @baskets = policy_scope(Basket)
+    @items = policy_scope(Item)
   end
 
   # GET basket_items/:id
@@ -24,11 +27,9 @@ class BasketItemsController < ApplicationController
 
     respond_to do |format|
       if @basket_item.save
-        format.html { redirect_to basket_item_url(@basket_item), notice: "Basket item was successfully created." }
-        format.json { render :show, status: :created, location: @basket_item }
+        format.html { redirect_to basket_items_url, notice: "Basket item was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @basket_item.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -43,11 +44,12 @@ class BasketItemsController < ApplicationController
   def update
     respond_to do |format|
       if @basket_item.update(basket_item_params)
-        format.html { redirect_to basket_item_url(@basket_item), notice: "Basket item was successfully updated." }
-        format.json { render :show, status: :ok, location: @basket_item }
+        format.turbo_stream {
+          render turbo_stream: turbo_stream.replace("basket_item_#{@basket_item.id}", render_to_string(partial: 'basket_item', locals: { basket_item: @basket_item }))
+        }
+        format.html { redirect_to basket_item_path(@basket_item), notice: "Basket item was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @basket_item.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -58,7 +60,6 @@ class BasketItemsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to basket_items_url, notice: "Basket item was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 

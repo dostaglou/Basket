@@ -1,32 +1,33 @@
-<div id="<%= dom_id basket_item %>">
-  <p>
-    <strong>Basket:</strong>
-    <%= basket_item.basket_id %>
-  </p>
+<turbo-frame id="<%= dom_id basket_item %>">
+  <div class="p-1 m-1 bg-white-200 rounded overflow-hidden shadow-lg shadow-slate-300 border-2 border-slate-100 hover:shadow-lime-100 hover:border-1 hover:border-lime-100">
+    <div class="grid grid-cols-2 divide-x-2 divide-gray-100">
+      <%= image_tag(basket_item.image_name, class: "block object-contain h-32 box-border") %>
+      <div class="pl-2 box-border">
+        <p class="text-center text-2xl border-b-2 border-gray-100">
+          <strong> <%= basket_item.name %> </strong>
+        </p>
+        <p class="text-center">
+          <%= "#{basket_item.quantity} x #{basket_item.measure}" %>
+        </p>
+        <p class="truncate w-full">
+          <%= basket_item.basket.name %>
+        </p>
+        <p>
+          <strong>Note:</strong>
+          <%= basket_item.note %>
+        </p>
+      </div>
+    </div>
 
-  <p>
-    <strong>Item:</strong>
-    <%= basket_item.item_id %>
-  </p>
-
-  <p>
-    <strong>Name:</strong>
-    <%= basket_item.name %>
-  </p>
-
-  <p>
-    <strong>Note:</strong>
-    <%= basket_item.note %>
-  </p>
-
-  <p>
-    <strong>Quantity:</strong>
-    <%= basket_item.quantity %>
-  </p>
-
-  <p>
-    <strong>Measure:</strong>
-    <%= basket_item.measure %>
-  </p>
-
-</div>
+    <div class="grid grid-cols-2">
+      <%= button_to "Remove", basket_item_path(basket_item), method: :delete, data: { turbo_frame: :_top }, class: "w-full btn bg-red-100 mr-2 px-2" %>
+      <button
+        class="w-full btn px-2 <%= basket_item.pending? ?  "bg-lime-100" : "bg-cyan-100" %>"
+        data-action="basket-items#toggleStatus"
+        data-basket-items-url-param="<%= basket_item_path(basket_item) %>"
+        data-basket-items-status-param="<%= basket_item.toggled_status %>">
+        <%= basket_item.pending? ?  "Done" : "Undo" %>
+      </button>
+    </div>
+  </div>
+</turbo-frame>

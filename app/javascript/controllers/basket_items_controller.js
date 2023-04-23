@@ -1,16 +1,16 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="items"
+// Connects to data-controller="basket-items"
 export default class extends Controller {
   connect() {}
 
-  increment(e) {
+  toggleStatus(e) {
     e.preventDefault()
     const csrfToken = document.querySelector("[name='csrf-token']").content
-    const typicalQuantity = e.target.dataset.typicalQuantity
-    const url = e.target.dataset.url
+    const status = e.params.status
+    const url = e.params.url
     const req = {
-      method: 'POST',
+      method: 'PATCH',
       mode: 'cors',
       cache: 'no-cache',
       credentials: 'same-origin',
@@ -19,7 +19,7 @@ export default class extends Controller {
         'X-CSRF-TOKEN': csrfToken,
         'Accept': 'text/vnd.turbo-stream.html, text/html'
       },
-      body: JSON.stringify({ item: { typical_quantity: Number(typicalQuantity) + 1 } })
+      body: JSON.stringify({ basket_item: { status: status } })
     }
     fetch(url, req)
     .then(response => response.text())

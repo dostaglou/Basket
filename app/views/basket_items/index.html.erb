@@ -1,14 +1,6 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Basket items</h1>
-
-<div id="basket_items">
+<div data-controller="basket-items" id="basket-items" class="flex flex-wrap justify-center md:justify-start">
   <% @basket_items.each do |basket_item| %>
     <%= render basket_item %>
-    <p>
-      <%= link_to "Show this basket item", basket_item %>
-    </p>
   <% end %>
 </div>
-
-<%= link_to "New basket item", new_basket_item_path %>
+<%= render "form", basket_item: @basket_item, baskets: @baskets, items: @items %>

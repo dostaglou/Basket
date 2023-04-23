@@ -47,4 +47,12 @@ class BasketItem < ApplicationRecord
   def pending?
     self.status == Statuses::PENDING
   end
+
+  def toggled_status
+    if self.pending?
+     Statuses::PICKED_UP
+    else
+      Statuses::PENDING
+    end
+  end
 end
