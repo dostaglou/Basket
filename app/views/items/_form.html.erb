@@ -1,37 +1,37 @@
-<%= form_with(model: item) do |form| %>
-  <% if item.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+<div class="max-w-sm rounded overlfow-hidden shadow-lg">
+  <div class="px-6 py-4">
+    <%= form_with(model: item, class: "mb-7") do |form| %>
+      <% if item.errors.any? %>
+        <div style="color: red">
+          <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
 
-      <ul>
-        <% item.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+          <ul>
+            <% item.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+      <div class="mb-5">
+        <%= form.text_field :name, placeholder: "name", class: "inline-block w-full mt-2 shadow rounded-md border border-gray-200 outline-none" %>
+      </div>
+
+      <div class="mb-5">
+        <%= form.text_area :note, placeholder: "note", class: "inline-block w-full mt-2 shadow rounded-md border border-gray-200 outline-none" %>
+      </div>
+
+      <div class="mb-5">
+        <%= form.number_field :typical_quantity, placeholder: "typical quantity", class: "inline-block w-full mt-2 shadow rounded-md border border-gray-200 outline-none" %>
+      </div>
+
+      <div class="mb-5">
+        <%= form.text_field :typical_measure, placeholder: "typical measure", class: "inline-block w-full mt-2 shadow rounded-md border border-gray-200 outline-none" %>
+      </div>
+
+      <div class="mb-5">
+        <%= form.submit "Save", class: "btn py-2 ml-2 bg-blue-600 text-white" %>
+      </div>
+    <% end %>
   </div>
-
-  <div>
-    <%= form.label :note, style: "display: block" %>
-    <%= form.text_area :note %>
-  </div>
-
-  <div>
-    <%= form.label :typical_quantity, style: "display: block" %>
-    <%= form.text_field :typical_quantity %>
-  </div>
-
-  <div>
-    <%= form.label :typical_measure, style: "display: block" %>
-    <%= form.text_field :typical_measure %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

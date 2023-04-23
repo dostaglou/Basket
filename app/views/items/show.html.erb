@@ -1,10 +1,4 @@
-<p style="color: green"><%= notice %></p>
+<turbo-frame id="<%= dom_id @item %>">
+  <%= render @item %>
+</turbo-frame>
 
-<%= render @item %>
-
-<div>
-  <%= link_to "Edit this item", edit_item_path(@item) %> |
-  <%= link_to "Back to items", items_path %>
-
-  <%= button_to "Destroy this item", @item, method: :delete %>
-</div>

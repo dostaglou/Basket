@@ -1,14 +1,12 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Items</h1>
-
-<div id="items">
+<%# if notice  %>
+  <%# <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"> %>
+    <%#= notice %>
+  <%# </p> %>
+<%# end %>
+<div data-controller="items" id="items">
   <% @items.each do |item| %>
     <%= render item %>
-    <p>
-      <%= link_to "Show this item", item %>
-    </p>
   <% end %>
 </div>
-
-<%= link_to "New item", new_item_path %>
+<%= render "form", item: @item %>
+<%#= link_to "New item", new_item_path %>

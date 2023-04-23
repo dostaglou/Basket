@@ -1,29 +1,48 @@
-<div id="<%= dom_id item %>">
-  <p>
-    <strong>Name:</strong>
-    <%= item.name %>
-  </p>
+<turbo-frame class="max-w-sm rounded overlfow-hidden shadow-lg" id="<%= dom_id item %>">
+  <div class="px-6 py-4">
+    <div class="block">
+      <p>
+        <strong>Name:</strong>
+        <%= item.name %>
+      </p>
+      <p>
+        <strong>User:</strong>
+        <%= item.user_id %>
+      </p>
+      <p>
+        <strong>Note:</strong>
+        <%= item.note %>
+      </p>
+      <p>
+        <strong>Typical quantity:</strong>
+        <%= item.typical_quantity %>
+      </p>
+      <p>
+        <strong>Typical measure:</strong>
+        <%= item.typical_measure %>
+      </p>
+      <div class="flex">
+        <%= link_to "Edit", edit_item_path(item), class: "btn bg-lime-600 text-white" %>
+        <%= link_to "Show", item_path(item), class: "btn bg-blue-600 text-white" %>
+        <%= form_with(model: item) do |form| %>
+          <%=
+            form.button(
+              "increment",
+              class: "btn bg-cyan-600 text-white",
+              remote: true,
+              data: {
+                remote: true,
+                id: item.id,
+                url: increment_item_path(item),
+                typical_quantity: item.typical_quantity.floor,
+                action: "items#increment"
+              }
+            )
+          %>
+        <% end %>
 
-  <p>
-    <strong>User:</strong>
-    <%= item.user_id %>
-  </p>
-
-  <p>
-    <strong>Note:</strong>
-    <%= item.note %>
-  </p>
-
-  <p>
-    <strong>Typical quantity:</strong>
-    <%= item.typical_quantity %>
-  </p>
-
-  <p>
-    <strong>Typical measure:</strong>
-    <%= item.typical_measure %>
-  </p>
-
-  <%= image_tag(item.image_name, height: 64) %>
-
-</div>
+        <%= button_to "Delete", item_path(item), method: :delete, data: { turbo_frame: :_top }, class: "btn bg-red-700 text-white" %>
+      </div>
+    </div>
+  </div>
+</turbo-frame>
