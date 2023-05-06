@@ -1,9 +1,9 @@
-<h1>New basket item</h1>
-
-<%= render "form", basket_item: @basket_item, baskets: @baskets, items: @items %>
-
-<br>
-
-<div>
-  <%= link_to "Back to basket items", basket_items_path %>
-</div>
+<main>
+  <%= turbo_frame_tag "new_basket_item" do  %>
+    <div data-modal-target="modal" data-controller="modal" class="flex items-center justify-center fixed z-40 inset-0 h-full p-6 backdrop-blur-md">
+      <div data-action="keyup@document->modal#escClose click@window->modal#outsideClick">
+        <%= render "form", basket_item: @basket_item, baskets: @baskets, items: @items  %>
+      </div>
+    </div>
+  <% end %>
+</main>

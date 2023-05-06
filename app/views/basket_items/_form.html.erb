@@ -10,37 +10,25 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :basket_id, style: "display: block" %>
-    <%= form.collection_select(:basket_id, baskets, :id, :name) %>
-  </div>
-
-  <div>
-    <%= form.label :item_id, style: "display: block" %>
-    <%= form.collection_select(:item_id, items, :id, :name) %>
-  </div>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.label :note, style: "display: block" %>
-    <%= form.text_field :note %>
-  </div>
-
-  <div>
-    <%= form.label :quantity, style: "display: block" %>
-    <%= form.text_field :quantity %>
-  </div>
-
-  <div>
-    <%= form.label :measure, style: "display: block" %>
-    <%= form.text_field :measure %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="bg-slate-100 max-w-xl p-1 m-1 bg-white-200 rounded overflow-hidden shadow-lg shadow-slate-300 border-2 border-slate-200 hover:shadow-lime-100 hover:border-1 hover:border-slate-400">
+    <%= image_tag(basket_item.image_name, class: "block object-contain h-32 box-border mb-2") %>
+    <div class="px-2">
+      <div class="grid grid-cols-9 gap-2 mb-2 leading-1">
+        <%= form.text_field(:name, placeholder: "Name", class: "col-span-6 border-0 border-b-2 border-black text-center focus:ring-0") %>
+        <%= form.select :item_id, items.pluck(:name, :id), { include_blank: true }, class: "col-span-3 border-slate-300 shadow-md shadow-slate-200 focus:ring-0 focus:border-0 focus:border-b-2" %>
+      </div>
+      <div class="grid grid-cols-6 gap-2 mb-2">
+        <%= form.number_field :quantity, in: 1..100, step: 1, class: "col-span-1 border-slate-300 shadow-md shadow-slate-200 focus:ring-0 focus:border-0 focus:border-b-2" %>
+        <%= form.select :measure, MeasureEnum.options_as_input, { prompt: "none" },  class: "col-span-2 border-slate-300 shadow-md shadow-slate-200 focus:ring-0 focus:border-0 focus:border-b-2"  %>
+        <%= form.collection_select :basket_id, baskets, :id, :name, {}, class: "col-span-3 border-slate-300 shadow-md shadow-slate-200 focus:ring-0 focus:border-0 focus:border-b-2" %>
+      </div>
+      <%= form.text_area :note, placeholder: "Note", rows: 3, class: "w-full border-slate-300 shadow-md shadow-slate-200 focus:ring-0 focus:border-0 focus:border-b-2" %>
+    </div>
+    <div class="grid grid-cols-2 gap-2">
+      <button type="button" data-action="modal#close" class="btn-outline">Abandon</button>
+      <%= form.submit "Create", class: "btn bg-cyan-100", data: { modal_target: "submitButton" } %>
+    </div>
   </div>
 <% end %>
+
+

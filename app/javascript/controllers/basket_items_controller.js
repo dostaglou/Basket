@@ -3,6 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="basket-items"
 export default class extends Controller {
   connect() {}
+  
 
   toggleStatus(e) {
     e.preventDefault()

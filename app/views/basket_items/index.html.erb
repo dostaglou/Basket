@@ -1,6 +1,9 @@
-<div data-controller="basket-items" id="basket-items" class="flex flex-wrap justify-center md:justify-start">
-  <% @basket_items.each do |basket_item| %>
-    <%= render basket_item %>
-  <% end %>
+<div data-controller="basket-items" class="max-w-7xl flex flex-wrap justify-center lg:justify-start">
+  <div id="basket_items">
+    <% @basket_items.each do |basket_item| %>
+      <%= render basket_item %>
+    <% end %>
+  </div>
+  <%= render "new_basket_item", { basket_item: @basket_item, baskets: @baskets, items: @items } %>
+  <%= turbo_frame_tag "new_basket_item" %>
 </div>
-<%= render "form", basket_item: @basket_item, baskets: @baskets, items: @items %>

@@ -27,6 +27,7 @@ class BasketItemsController < ApplicationController
 
     respond_to do |format|
       if @basket_item.save
+        format.turbo_stream
         format.html { redirect_to basket_items_url, notice: "Basket item was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -36,8 +37,8 @@ class BasketItemsController < ApplicationController
 
   # GET /basket_items/:id/edit
   def edit
-    @baskets = Basket.where(user_id: current_user.id)
-    @items = Item.where(user_id: current_user.id)
+    @baskets = policy_scope(Basket)
+    @items = policy_scope(Item)
   end
 
   # PATCH/PUT /basket_items/:id

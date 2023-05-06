@@ -18,16 +18,15 @@ class BasketsController < ApplicationController
 
   # POST /baskets/create
   def create
-    @basket = Basket.create!(basket_params.merge(user_id: current_user.id))
+    @basket = Basket.new(basket_params.merge(user_id: current_user.id))
 
-    respond_to do |format|
-      if @basket.save
-        format.html { redirect_to basket_url(@basket), notice: "basket was successfully created." }
-        format.json { render :show, status: :created, location: @basket }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @basket.errors, status: :unprocessable_entity }
+    if @basket.save
+      respond_to do |format|
+        format.html { redirect_to baskets_path }
+        format.turbo_stream
       end
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 

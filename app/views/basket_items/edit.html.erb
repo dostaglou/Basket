@@ -1,10 +1,1 @@
-<h1>Editing basket item</h1>
-
-<%= render "form", basket_item: @basket_item, items: @items, baskets: @baskets %>
-
-<br>
-
-<div>
-  <%= link_to "Show this basket item", @basket_item %> |
-  <%= link_to "Back to basket items", basket_items_path %>
-</div>
+<%= render "form", basket_item: @basket_item, baskets: @baskets, items: @items %>
