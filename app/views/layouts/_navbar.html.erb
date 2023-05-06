@@ -10,25 +10,31 @@
         <% if current_user %>
           <%= link_to "Sign Out", destroy_user_session_path, data: { turbo_method: :delete }, class: "block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0" %>
         <% else %>
-          <div data-controller="hidden-modal" data-hidden-modal-hidden-class="hidden">
-            <button data-action="click->hidden-modal#toggle">
+          <div data-controller="dialog">
+            <button data-action="click->dialog#open" data-dialog-target="openButton">
               Sign In
             </button>
-            <div id="sign_in_form" data-hidden-modal-target="modal" class="flex items-center justify-center fixed z-40 inset-0 h-full p-6 backdrop-blur-md hidden">
-              <div data-action="click@window->hidden-modal#outsideClick">
+            <dialog id="sign_in_form" data-dialog-target="dialog">
+              <div data-action="click@window->dialog#outsideClick" data-dialog-target="modalBox">
                 <%= render "devise/sessions/form", resource: User.new, resource_name: :user %>
+                <button data-action="click->dialog#close">
+                  Hide
+                </button>
               </div>
-            </div>
+            </dialog>
           </div>
-          <div data-controller="hidden-modal" data-hidden-modal-hidden-class="hidden">
-            <button data-action="click->hidden-modal#toggle">
+          <div data-controller="dialog">
+            <button data-action="click->dialog#open" data-dialog-target="openButton">
               Sign Up
             </button>
-            <div id="sign_up_form" data-hidden-modal-target="modal" class="flex items-center justify-center fixed z-40 inset-0 h-full p-6 backdrop-blur-md hidden">
-              <div data-action="click@window->hidden-modal#outsideClick">
+            <dialog id="sign_in_form" data-dialog-target="dialog">
+              <div data-action="click@window->dialog#outsideClick" data-dialog-target="modalBox">
                 <%= render "devise/registrations/form", resource: User.new, resource_name: :user %>
+                <button data-action="click->dialog#close">
+                  Hide
+                </button>
               </div>
-            </div>
+            </dialog>
           </div>
         <% end %>
       </ul>
