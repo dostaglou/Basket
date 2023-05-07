@@ -4,10 +4,9 @@ class BasketItemsController < ApplicationController
 
   # GET /basket_items
   def index
-    @basket_items = policy_scope(BasketItem).order(created_at: :asc)
+    @basket_items = policy_scope(BasketItem).order([status: :asc, name: :asc])
     @basket_item = BasketItem.new
     @baskets = policy_scope(Basket)
-    @items = policy_scope(Item)
   end
 
   # GET basket_items/:id
@@ -17,7 +16,6 @@ class BasketItemsController < ApplicationController
   # GET basket_items/new
   def new
     @baskets = policy_scope(Basket)
-    @items = policy_scope(Item)
     @basket_item = BasketItem.new
   end
 
@@ -38,7 +36,6 @@ class BasketItemsController < ApplicationController
   # GET /basket_items/:id/edit
   def edit
     @baskets = policy_scope(Basket)
-    @items = policy_scope(Item)
   end
 
   # PATCH/PUT /basket_items/:id

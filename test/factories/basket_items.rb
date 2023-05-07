@@ -11,17 +11,14 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  basket_id  :bigint           not null
-#  item_id    :bigint           not null
 #
 # Indexes
 #
 #  index_basket_items_on_basket_id  (basket_id)
-#  index_basket_items_on_item_id    (item_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (basket_id => baskets.id)
-#  fk_rails_...  (item_id => items.id)
 #
 FactoryBot.define do
   factory :basket_item do

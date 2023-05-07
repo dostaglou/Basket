@@ -15,12 +15,11 @@
     <div class="px-2">
       <div class="grid grid-cols-9 gap-2 mb-2 leading-1">
         <%= form.text_field(:name, placeholder: "Name", class: "col-span-6 border-0 border-b-2 border-black text-center focus:ring-0") %>
-        <%= form.select :item_id, items.pluck(:name, :id), { include_blank: true }, class: "col-span-3 border-slate-300 shadow-md shadow-slate-200 focus:ring-0 focus:border-0 focus:border-b-2" %>
+        <%= form.collection_select :basket_id, baskets, :id, :name, {}, class: "col-span-3 border-slate-300 shadow-md shadow-slate-200 focus:ring-0 focus:border-0 focus:border-b-2" %>
       </div>
       <div class="grid grid-cols-6 gap-2 mb-2">
         <%= form.number_field :quantity, in: 1..100, step: 1, class: "col-span-1 border-slate-300 shadow-md shadow-slate-200 focus:ring-0 focus:border-0 focus:border-b-2" %>
         <%= form.select :measure, MeasureEnum.options_as_input, { prompt: "none" },  class: "col-span-2 border-slate-300 shadow-md shadow-slate-200 focus:ring-0 focus:border-0 focus:border-b-2"  %>
-        <%= form.collection_select :basket_id, baskets, :id, :name, {}, class: "col-span-3 border-slate-300 shadow-md shadow-slate-200 focus:ring-0 focus:border-0 focus:border-b-2" %>
       </div>
       <%= form.text_area :note, placeholder: "Note", rows: 3, class: "w-full border-slate-300 shadow-md shadow-slate-200 focus:ring-0 focus:border-0 focus:border-b-2" %>
     </div>
