@@ -1,12 +1,10 @@
 <%= link_to "Add New", new_basket_item_path, data: { turbo_frame: "new_basket_item" }, type: "button", class: "w-full btn bg-purple-100 mr-2 px-2" %>
 
 <div data-controller="basket-items">
-  <div class="max-w-7xl flex flex-wrap justify-center">
-    <div id="basket_items">
+  <div class="max-w-7xl flex flex-wrap justify-center" id="basket_items">
       <% @basket_items.each do |basket_item| %>
         <%= render basket_item %>
       <% end %>
-    </div>
   </div>
 </div>
 
