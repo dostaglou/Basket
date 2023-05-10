@@ -1,17 +1,11 @@
-<div class="container">
-  <div class="col-md-6 offset-md-3">
-    <div class="d-flex justify-content-between align-items-center my-4">
-      <h1 class="h3">
-        All Baskets
-      </h1>
-      <%= link_to('New Basket', new_basket_path, class: "btn btn-primary", data: { 'turbo-frame': 'new_basket'}) %>
-    </div>
+<%= link_to "Add New", new_basket_path, data: { turbo_frame: "new_basket" }, type: "button", class: "w-full btn bg-purple-100 mr-2 px-2" %>
 
-    <%= turbo_frame_tag "new_basket" %>
-    <div id="baskets" class="d-flex flex-column gap-3">
+<div >
+  <div class="max-w-7xl flex flex-wrap justify-center" id="baskets">
       <% @baskets.each do |basket| %>
         <%= render basket %>
       <% end %>
-    </div>
   </div>
 </div>
+
+<%= turbo_frame_tag "new_basket" %>

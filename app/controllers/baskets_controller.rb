@@ -4,7 +4,7 @@ class BasketsController < ApplicationController
 
   # GET /baskets
   def index
-    @baskets = policy_scope(Basket)
+    @baskets = policy_scope(Basket).includes(:basket_items)
   end
 
   # GET /baskets/:id
