@@ -1,6 +1,6 @@
 class BasketsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_basket, only: %i[ show update edit destroy]
+  before_action :set_basket, only: %i[ show update edit destroy toggle_items]
 
   # GET /baskets
   def index
@@ -32,6 +32,23 @@ class BasketsController < ApplicationController
 
   # GET /baskets/:id/edit
   def edit
+  end
+
+  def toggle_items
+    status = params[:status]
+    if BasketItem.get_statuses.include?(status)
+      respond_to do |format|
+        ActiveRecord::Base.transaction do
+          if @basket.basket_items.update_all(status: status)
+            format.html { redirect_to basket_url(@basket), notice: "Basket items updated" }
+            format.turbo_stream.update @basket
+          else
+            format.html { render :edit, status: :unprocessable_entity }
+            format.json { render json: @basket.errors, status: :unprocessable_entity }
+          end
+        end
+      end
+    end
   end
 
   # PUT /basket/:id
