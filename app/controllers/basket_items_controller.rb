@@ -5,7 +5,7 @@ class BasketItemsController < ApplicationController
   # GET /basket_items
   def index
     records = policy_scope(BasketItem).order([status: :asc, name: :asc])
-    @pagy, @basket_items = pagy(records, items: 5)
+    @pagy, @basket_items = pagy(records, items: 6)
     @basket_item = BasketItem.new
     @baskets = policy_scope(Basket)
   end
