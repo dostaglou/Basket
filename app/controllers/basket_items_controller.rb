@@ -5,9 +5,17 @@ class BasketItemsController < ApplicationController
   # GET /basket_items
   def index
     records = policy_scope(BasketItem).order([status: :asc, name: :asc])
-    @pagy, @basket_items = pagy(records, items: 6)
+    records = records.name_note_search(params[:query]) if params[:query].present?
+    records = records.where({ basket_items: { basket_id: params[:basket_id] } }) if params[:basket_id].present?
+
+    @pagy, @basket_items = pagy(records, items: 6, link_extra: 'data-turbo-frame="basket_items"')
     @basket_item = BasketItem.new
     @baskets = policy_scope(Basket)
+
+    respond_to do |format|
+      format.html { render :index }
+      format.turbo_stream
+    end
   end
 
   # GET basket_items/:id

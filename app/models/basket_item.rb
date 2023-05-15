@@ -21,6 +21,15 @@
 #  fk_rails_...  (basket_id => baskets.id)
 #
 class BasketItem < ApplicationRecord
+  include PgSearch::Model
+  pg_search_scope :name_note_search,
+                  against: %i(name note),
+                  using: {
+                    tsearch: {
+                      prefix: true,
+                    }
+                  }
+
   belongs_to :basket
 
   module Statuses
