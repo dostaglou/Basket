@@ -8,6 +8,7 @@ class BasketItemsController < ApplicationController
     records = records.name_note_search(params[:query]) if params[:query].present?
     records = records.where({ basket_items: { basket_id: params[:basket_id] } }) if params[:basket_id].present?
 
+    @search_value =  params[:query]
     @pagy, @basket_items = pagy(records, items: 6, link_extra: 'data-turbo-frame="basket_items"')
     @basket_item = BasketItem.new
     @baskets = policy_scope(Basket)
