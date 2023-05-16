@@ -1,21 +1,24 @@
 <div data-controller="basket-items">
   <%= turbo_frame_tag "basket_items" do %>
-    <div class="max-w-7xl flex flex-wrap justify-center">
-      <%= form_with(url: basket_items_path, method: :get, data: {turbo_frame: "basket_items"}) do |form| %>
-        <%= form.select :basket_id, @baskets.pluck(:name, :id) %>
+    <div class="max-w-7xl">
+      <div class="flex flex-wrap justify-center">
+        <%= form_with(url: basket_items_path, method: :get, data: { turbo_frame: "basket_items" }) do |form| %>
+          <%= form.select :basket_id, @baskets.pluck(:name, :id) %>
 
-        <%= form.text_field :query, class: "", value: @search_value %>
+          <%= form.text_field :query, class: "", value: @search_value %>
 
-        <%= form.submit 'Search', name: nil, class: "btn" %>
-      <% end %>
-      <%= link_to "Add New", new_basket_item_path, data: { turbo_frame: "new_basket_item" }, type: "button", class: "btn bg-purple-100" %>
-
-      <div class="flex flex-wrap justify-center" id="basket_item_list">
-          <% @basket_items.each do |basket_item| %>
-            <%= render basket_item %>
-          <% end %>
+          <%= form.submit 'Search', name: nil, class: "btn" %>
+        <% end %>
+        <%= link_to "Add New", new_basket_item_path, data: { turbo_frame: "new_basket_item" }, type: "button", class: "inline btn bg-purple-100" %>
       </div>
-      <%== pagy_nav(@pagy) %>
+      <div class="flex flex-wrap justify-center" id="basket_item_list">
+        <% @basket_items.each do |basket_item| %>
+          <%= render basket_item %>
+        <% end %>
+      </div>
+      <div class="justify-center">
+        <%== pagy_nav(@pagy) %>
+      </div>
     </div>
   <% end %>
 </div>
