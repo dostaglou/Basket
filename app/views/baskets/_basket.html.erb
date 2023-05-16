@@ -1,4 +1,4 @@
-<turbo-frame id="<%= dom_id basket %>">
+<%= turbo_frame_tag basket do %>
   <div class="p-1 m-1 w-96 bg-white-200 rounded overflow-hidden shadow-lg shadow-slate-300 border-2 border-slate-100 hover:shadow-lime-100 hover:border-1 hover:border-lime-100">
     <div class="grid grid-cols-2 divide-x-2 divide-gray-100">
       <%= image_tag(basket.image_name, class: "block object-contain h-32 box-border") %>
@@ -26,4 +26,4 @@
     </div>
       <%= button_to "Pickup All", toggle_items_path(basket, status: BasketItem::Statuses::PICKED_UP), method: :patch, data: { turbo_frame: dom_id(basket)}, type: "button", class: "w-full btn bg-red-100 mr-2 px-2" %>
   </div>
-</turbo-frame>
+<% end %>

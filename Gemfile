@@ -83,3 +83,6 @@ gem "tailwindcss-rails", "~> 2.0"
 gem "pagy", "~> 6.0"
 
 gem "pg_search", "~> 2.3"
+
+gem "sidekiq"
+gem "sidekiq-failures", "~> 1.0"

@@ -68,6 +68,7 @@ class BasketItemsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to basket_items_url, notice: "Basket item was successfully destroyed." }
+      format.turbo_stream { render turbo_stream: turbo_stream.replace("basket_item_#{@basket_item.id}")}
     end
   end
 
