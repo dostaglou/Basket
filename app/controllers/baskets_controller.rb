@@ -42,7 +42,7 @@ class BasketsController < ApplicationController
         ActiveRecord::Base.transaction do
           if @basket.basket_items.update_all(status: status)
             format.html { redirect_to basket_url(@basket), notice: "Basket items updated" }
-            format.turbo_stream.update @basket
+            # format.turbo_stream
           else
             format.html { render :edit, status: :unprocessable_entity }
             format.json { render json: @basket.errors, status: :unprocessable_entity }

@@ -21,7 +21,20 @@
 #  fk_rails_...  (basket_id => baskets.id)
 #
 class BasketItem < ApplicationRecord
+  include PgSearch::Model
+  pg_search_scope :name_note_search,
+                  against: %i(name note),
+                  using: {
+                    tsearch: {
+                      prefix: true,
+                    }
+                  }
+
   belongs_to :basket
+  after_update -> (item) { item.broadcast_replace_to item }
+  after_create -> (item) { item.broadcast_prepend_to "basket_item_list", target: "basket_item_list" }
+  after_destroy -> (item) { item.broadcast_remove_to item }
+
 
   module Statuses
     PENDING = 'pending'

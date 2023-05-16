@@ -1,11 +1,9 @@
 <%= link_to "Add New", new_basket_path, data: { turbo_frame: "new_basket" }, type: "button", class: "w-full btn bg-purple-100 mr-2 px-2" %>
 
-<div >
-  <div class="max-w-7xl flex flex-wrap justify-center" id="baskets">
-      <% @baskets.each do |basket| %>
-        <%= render basket %>
-      <% end %>
-  </div>
+<div class="max-w-7xl flex flex-wrap justify-center" id="baskets">
+    <% @baskets.each do |basket| %>
+      <%= render basket %>
+    <% end %>
 </div>
 
 <%== pagy_nav(@pagy) %>

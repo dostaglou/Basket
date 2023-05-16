@@ -19,7 +19,11 @@
 class Basket < ApplicationRecord
   belongs_to :user
   has_many :basket_items, dependent: :destroy
+  after_commit -> (basket) { broadcast_replace_to basket }
 
+  def send_it
+    self.broadcast_replace_later_to self, target: "basket_#{self.id}"
+  end
   def image_name
     "shopping-venture"
   end

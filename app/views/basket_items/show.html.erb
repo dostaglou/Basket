@@ -1,3 +1,2 @@
-<turbo-frame id="<%= dom_id @basket_item %>">
-  <%= render @basket_item %>
-</turbo-frame>
+<%= turbo_stream_from @basket_item %>
+<%= render @basket_item %>
