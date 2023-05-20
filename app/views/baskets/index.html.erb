@@ -1,6 +1,6 @@
 <%= link_to "Add New", new_basket_path, data: { turbo_frame: "new_basket" }, type: "button", class: "w-full btn bg-purple-100 mr-2 px-2" %>
 
-<div class="max-w-7xl flex flex-wrap justify-center" id="baskets">
+<div class="m-auto max-w-7xl flex flex-wrap justify-center" id="baskets">
     <% @baskets.each do |basket| %>
       <%= turbo_stream_from basket %>
       <%= render basket %>

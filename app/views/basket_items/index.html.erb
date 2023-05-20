@@ -1,7 +1,7 @@
 <%= turbo_stream_from "basket_item_list" %>
 <div data-controller="basket-items">
   <%= turbo_frame_tag "basket_items" do %>
-    <div class="max-w-7xl">
+    <div class="m-auto max-w-7xl">
       <div class="flex flex-wrap justify-center">
         <%= form_with(url: basket_items_path, method: :get, data: { turbo_frame: "basket_items" }) do |form| %>
           <%= form.select :basket_id, @baskets.pluck(:name, :id) %>
