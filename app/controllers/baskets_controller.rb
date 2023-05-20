@@ -38,17 +38,16 @@ class BasketsController < ApplicationController
   def toggle_items
     status = params[:status]
     if BasketItem.get_statuses.include?(status)
-      basket_item_attributes = @basket.basket_items.each { |bi| bi.status = status }
+      toggled_basket_items = @basket.basket_items.each { |bi| bi.status = status }
       respond_to do |format|
         ActiveRecord::Base.transaction do
-          if @basket.update(basket_items: basket_item_attributes)
+          if @basket.update(basket_items: toggled_basket_items)
             format.html { redirect_to basket_url(@basket), notice: "Basket items updated" }
             format.turbo_stream {
               render turbo_stream: turbo_stream.replace("basket_#{@basket.id}", render_to_string(partial: 'basket', locals: { basket: @basket }))
             }
           else
             format.html { render :edit, status: :unprocessable_entity }
-            format.json { render json: @basket.errors, status: :unprocessable_entity }
           end
         end
       end
@@ -60,10 +59,8 @@ class BasketsController < ApplicationController
     respond_to do |format|
       if @basket.update(basket_params)
         format.html { redirect_to basket_url(@basket), notice: "basket was successfully updated." }
-        format.json { render :show, status: :ok, location: @basket }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @basket.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -74,7 +71,6 @@ class BasketsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to items_url, notice: "Item was successfully destroyed." }
-      format.json { head :no_content }
       format.turbo_stream { render turbo_stream: turbo_stream.replace("basket_#{@basket.id}")}
     end
   end
