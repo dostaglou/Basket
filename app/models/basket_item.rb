@@ -50,7 +50,7 @@ class BasketItem < ApplicationRecord
   validates :status, inclusion: { in: self.get_statuses }
 
   def image_name
-    "shopping-venture"
+    "shopping-venture.png"
   end
 
   def pending?

@@ -27,6 +27,6 @@ class Basket < ApplicationRecord
   accepts_nested_attributes_for :basket_items
 
   def image_name
-    "shopping-venture"
+    "shopping-venture.png"
   end
 end
