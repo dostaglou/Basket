@@ -1,2 +1,9 @@
-<%= render "form", basket: @basket %>
-
+<main>
+  <%= turbo_frame_tag "edit_basket" do %>
+      <div data-modal-target="modal" data-controller="modal" class="flex items-center justify-center fixed z-40 inset-0 h-full p-6 backdrop-blur-md">
+      <div data-action="keyup@document->modal#escClose click@window->modal#outsideClick">
+        <%= render "form",basket: @basket  %>
+      </div>
+    </div>
+  <% end %>
+</main>
