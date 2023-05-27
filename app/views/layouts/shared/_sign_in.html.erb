@@ -1,0 +1,24 @@
+<%= turbo_frame_tag "sign_in_up_modal" do %>
+  <dialog data-controller="dialog" data-dialog-target="dialog">
+    <main data-action="click@window->dialog#outsideClick" data-dialog-target="modalBox">
+      <%= form_for(User.new, as: :user, url: session_path(:user), data: { turbo: false}) do |f| %>
+        <div class="field">
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full"%>
+        </div>
+
+        <div class="field">
+          <%= f.label :password %><br />
+          <%= f.password_field :password, autocomplete: "current-password", class: "w-full" %>
+        </div>
+
+        <div class="grid grid-cols-3 gap-1 p-2">
+          <%= link_to "Back", root_path, data: { turbo_frame: "_top" }, class: "btn w-full bg-cyan-100" %>
+          <%= link_to "Sign up", new_user_registration_path, data: { turbo_frame: "sign_in_up_modal" }, class: "btn w-full bg-red-100" %>
+          <%= f.submit "Log in", class: "btn w-full bg-lime-100" %>
+        </div>
+      <% end %>
+    </main>
+  </dialog>
+<% end %>
+

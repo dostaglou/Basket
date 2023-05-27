@@ -31,36 +31,12 @@
           </div>
         <% else %>
           <div class="flex flex-row justify-between w-4/5 md:w-fit mt-3 md:mt-0">
-            <div data-controller="dialog">
-              <button data-action="click->dialog#open" data-dialog-target="openButton">
-                Sign In
-              </button>
-              <dialog id="sign_in_form" data-dialog-target="dialog">
-                <div data-action="click@window->dialog#outsideClick" data-dialog-target="modalBox">
-                  <%= render "devise/sessions/form", resource: User.new, resource_name: :user %>
-                  <button data-action="click->dialog#close">
-                    Hide
-                  </button>
-                </div>
-              </dialog>
-            </div>
-            <div data-controller="dialog">
-              <button data-action="click->dialog#open" data-dialog-target="openButton">
-                Sign Up
-              </button>
-              <dialog id="sign_up_form" data-dialog-target="dialog">
-                <div data-action="click@window->dialog#outsideClick" data-dialog-target="modalBox">
-                  <%= render "devise/registrations/form", resource: User.new, resource_name: :user %>
-                  <button data-action="click->dialog#close">
-                    Hide
-                  </button>
-                </div>
-              </dialog>
-            </div>
+            <%= link_to "Sign In", new_user_session_path, data: { turbo_frame: "sign_in_up_modal" }, class: "mx-2 bg-lime-100" %>
           </div>
         <% end %>
     </div>
   </div>
 </nav>
 <%= turbo_frame_tag "new_basket_item" %>
+<%= turbo_frame_tag "sign_in_up_modal" %>
 
