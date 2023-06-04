@@ -44,6 +44,9 @@ class BasketItem < ApplicationRecord
   end
 
   validates :status, inclusion: { in: self.get_statuses }
+  validates :name, uniqueness: { scope: :basket_id }
+  after_validation -> (item) { name.strip! }
+
 
   def image_name
     "shopping-venture.png"
