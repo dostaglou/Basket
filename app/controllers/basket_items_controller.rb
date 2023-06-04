@@ -10,7 +10,7 @@ class BasketItemsController < ApplicationController
 
     @search_basket = params[:basket_id]
     @search_value =  params[:query]
-    @pagy, @basket_items = pagy(records, items: 6, link_extra: 'data-turbo-frame="basket_items"')
+    @pagy, @basket_items = pagy(records, items: 20, link_extra: 'data-turbo-frame="basket_items"')
     @basket_item = BasketItem.new
     @baskets = policy_scope(Basket)
 
@@ -56,7 +56,7 @@ class BasketItemsController < ApplicationController
         format.turbo_stream {
           render turbo_stream: turbo_stream.replace("basket_item_#{@basket_item.id}", render_to_string(partial: 'basket_item', locals: { basket_item: @basket_item }))
         }
-        format.html { redirect_to basket_item_path(@basket_item), notice: "Basket item was successfully updated." }
+        #format.html { redirect_to basket_item_path(@basket_item), notice: "Basket item was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end

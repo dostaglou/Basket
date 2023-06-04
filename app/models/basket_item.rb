@@ -31,10 +31,6 @@ class BasketItem < ApplicationRecord
                   }
 
   belongs_to :basket
-  after_update -> (item) { item.broadcast_replace_to item }
-  after_create -> (item) { item.broadcast_prepend_to "basket_item_list", target: "basket_item_list" }
-  after_destroy -> (item) { item.broadcast_remove_to item }
-
 
   module Statuses
     PENDING = 'pending'
@@ -51,6 +47,14 @@ class BasketItem < ApplicationRecord
 
   def image_name
     "shopping-venture.png"
+  end
+
+  def qty_measure_to_words
+    if measure.present?
+      "#{self.quantity} x #{self.measure}"
+    else
+      "#{self.quantity}"
+    end
   end
 
   def pending?

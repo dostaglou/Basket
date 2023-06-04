@@ -15,7 +15,7 @@
       <div class="flex flex-wrap justify-center" id="basket_item_list">
         <% @basket_items.each do |basket_item| %>
           <%= turbo_stream_from basket_item %>
-          <%= render basket_item %>
+          <%= render partial: "basket_item", locals: { basket_item: basket_item } %>
         <% end %>
       </div>
       <div class="justify-center">
@@ -27,3 +27,5 @@
 
 
 <%= turbo_frame_tag "new_basket_item" %>
+<%= turbo_frame_tag "edit_basket_item" %>
+

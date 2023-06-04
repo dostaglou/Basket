@@ -1,26 +1,35 @@
 <%= turbo_frame_tag basket_item do %>
-  <div class="p-1 m-1 w-96 bg-white-200 rounded overflow-hidden shadow-lg shadow-slate-300 border-2 border-slate-100 hover:shadow-lime-100 hover:border-1 hover:border-lime-100">
-    <div class="grid grid-cols-2 divide-x-2 divide-gray-100">
-      <%= image_tag(basket_item.image_name, class: "block object-contain h-32 box-border") %>
-      <div class="pl-2 box-border">
-        <p class="text-center text-2xl border-b-2 border-gray-100">
-          <strong> <%= basket_item.name %> </strong>
-        </p>
-        <p class="text-center">
-          <%= "#{basket_item.quantity} x #{basket_item.measure}" %>
-        </p>
-        <p class="truncate w-full">
+  <main class="my-3 grid grid-cols-2 grid-rows-2 gap-1 shadow-slate-300 shadow-lg border-2 border-slate-100 hover:shadow-lime-100 hover:border-1, hover:border-lime-100">
+    <div class="border-b-2 border-slate-100">
+      <h3 class="m-auto text-center">
+        <%= basket_item.name %>
+      </h3>
+    </div>
+
+    <div class="grid grid-cols-2 mt-0">
+      <%= button_to "Edit", edit_basket_item_path(basket_item), method: :get, data: { turbo_frame: "edit_basket_item" }, class: "w-full btn m-0 ring-1 ring-cyan-100 hover:bg-cyan-100" %>
+      <%= button_to "#{basket_item.pending? ?  "Done" : "Undo"}", basket_item_path(basket_item, basket_item: { status: basket_item.toggled_status }), method: :patch, class: "m-0 w-full btn  #{basket_item.pending? ? "bg-lime-100" : "bg-cyan-100" }", data: { turbo_frame: dom_id(basket_item) } %>
+    </div>
+
+    <div class="flex justify-between">
+      <span class="mx-2">
+        <small>
+          <%= basket_item.qty_measure_to_words %>
+        </small>
+      </span>
+      <span class="mx-2">
+        <small>
           <%= basket_item.basket&.name %>
-        </p>
-        <p class="truncate">
-          <strong>Note:</strong>
-          <%= basket_item.note %>
-        </p>
-      </div>
+        </small>
+      </span>
     </div>
-    <div class="grid grid-cols-2">
-      <%= button_to "Remove", basket_item_path(basket_item), method: :delete, data: { turbo_frame: dom_id(basket_item), turbo_confirm: "delete?" }, class: "w-full btn bg-red-100 mr-2 px-2" %>
-      <%= button_to "#{basket_item.pending? ?  "Done" : "Undo"}", basket_item_path(basket_item, basket_item: { status: basket_item.toggled_status }), method: :patch, class: "w-full btn px-2 #{basket_item.pending? ? "bg-lime-100" : "bg-cyan-100" }", data: { turbo_frame: dom_id(basket_item) } %>
+
+    <div class="flex justify-end">
+      <span class="mx-2">
+        <small>
+          <%= basket_item.updated_at.strftime("%b-%d %H:%M") %>
+        </small>
+      </span>
     </div>
-  </div>
+  </main>
 <% end %>
